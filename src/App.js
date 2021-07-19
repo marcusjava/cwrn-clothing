@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Homepage from "./pages/homepage";
+import Shop from "./pages/shop";
+import Header from "./components/header";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up";
+import { setCurrentUser } from "./redux/user/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { auth, createUserProfileDocument } from "./util/firebase";
+import Checkout from "./pages/checkout";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        console.log("auth changed", user);
+        const userRef = await createUserProfileDocument(user);
+
+        userRef.onSnapshot((snapshot) => {
+          dispatch(setCurrentUser({ id: snapshot.id, ...snapshot.data() }));
+        });
+      } else {
+        dispatch(setCurrentUser(null));
+      }
+    });
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route path="/shop" component={Shop} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
+      </Switch>
     </div>
   );
 }
