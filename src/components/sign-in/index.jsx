@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useFirebase } from "../../context/firebase";
 import { signInWithGoogle } from "../../util/firebase";
 import CustomButton from "../custom-button";
 import FormInput from "../form-input";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { auth, createUserProfileDocument } from "../../util/firebase";
-
-import "./styles.scss";
+import { auth } from "../../util/firebase";
+import {
+  Container,
+  Title,
+  SubTitle,
+  Form,
+  ButtonContainer,
+} from "./styles/sign-in";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -39,10 +43,10 @@ function SignIn() {
   };
 
   return (
-    <div className="sign-in">
-      <h2 className="title">I already have an account</h2>
-      <span className="subtitle">Sign in with your email and password.</span>
-      <form onSubmit={handleSubmit}>
+    <Container>
+      <Title>I already have an account</Title>
+      <SubTitle>Sign in with your email and password.</SubTitle>
+      <Form onSubmit={handleSubmit}>
         <FormInput
           type="email"
           label="Email"
@@ -61,14 +65,14 @@ function SignIn() {
           handleChange={(e) => setPassword(e.target.value)}
           required
         />
-        <div className="button-container">
+        <ButtonContainer>
           <CustomButton type="submit">SIGN IN</CustomButton>
           <CustomButton onClick={signInWithGoogle} isGoogleButton>
             SIGN IN WITH GOOGLE
           </CustomButton>
-        </div>
-      </form>
-    </div>
+        </ButtonContainer>
+      </Form>
+    </Container>
   );
 }
 

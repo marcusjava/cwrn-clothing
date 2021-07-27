@@ -1,19 +1,14 @@
 import React from "react";
 import SignIn from "../../components/sign-in";
 import SignUp from "../../components/sign-up";
-
-import "./styles.scss";
+import { Container } from "./styles";
 
 function SignInAndSignUp() {
   return (
-    <div className="sign-in-and-sign-up">
-      <div className="sign-up">
-        <SignIn />
-      </div>
-      <div className="sign-in">
-        <SignUp />
-      </div>
-    </div>
+    <Container>
+      <SignIn />
+      <SignUp />
+    </Container>
   );
 }
 

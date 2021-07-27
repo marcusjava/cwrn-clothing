@@ -1,6 +1,7 @@
-.custom-button {
-  min-width: 200px;
-  width: auto;
+import styled from "styled-components/macro";
+
+export const Button = styled.button`
+  width: 100%;
   height: 50px;
   letter-spacing: 0.5px;
   line-height: 50px;
@@ -13,7 +14,6 @@
   font-weight: bolder;
   border: none;
   cursor: pointer;
-
   &:hover {
     background-color: white;
     color: black;
@@ -22,6 +22,7 @@
   &.google-button {
     background-color: #4285f4;
     color: white;
+    font-size: 12px;
 
     &:hover {
       background-color: #357a83;
@@ -38,4 +39,4 @@
       border: 1px solid black;
     }
   }
-}
+`;

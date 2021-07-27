@@ -9,7 +9,7 @@ function Shop() {
   let match = useRouteMatch();
 
   return (
-    <div className="shop-page">
+    <div>
       <Route exact path={`${match.path}`} component={CollectionOverview} />
       <Route path={`${match.path}/:collection_name`} component={Collection} />
     </div>

@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item";
 import StripeButton from "../../components/stripe-button";
 
@@ -8,8 +7,7 @@ import {
   selectCartItems,
   selectCartTotal,
 } from "../../redux/cart/cartSelectors";
-
-import "./styles.scss";
+import { Container, Header, Total, Payment, Block, Alert } from "./styles";
 
 function Checkout() {
   const cartItems = useSelector((state) => selectCartItems(state));
@@ -20,40 +18,43 @@ function Checkout() {
       total: selectCartTotal,
     })
   ); */
+
+  console.log(cartItems);
+
   return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">
+    <Container>
+      <Header>
+        <Block>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </Block>
+        <Block>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </Block>
+        <Block>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </Block>
+        <Block>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </Block>
+        <Block>
           <span>Remove</span>
-        </div>
-      </div>
+        </Block>
+      </Header>
       {cartItems.map((item) => (
         <CheckoutItem key={item.id} item={item} />
       ))}
-      <div className="total">
+      <Total>
         <span>Total ${cartTotal}</span>
-      </div>
-      <div className="payment">
+      </Total>
+      <Payment>
         <StripeButton price={cartTotal} />
-      </div>
-      <div className="pay_alert">
+      </Payment>
+      <Alert>
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - Exp 01/20 CVV 123
-      </div>
-    </div>
+      </Alert>
+    </Container>
   );
 }
 

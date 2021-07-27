@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { auth, createUserProfileDocument } from "../../util/firebase";
 import CustomButton from "../custom-button";
 import FormInput from "../form-input";
-
-import "./styles.scss";
+import {
+  Container,
+  Title,
+  SubTitle,
+  Form,
+  ButtonContainer,
+} from "./styles/sign-up";
 
 function SignUp() {
   const [displayName, setDisplayName] = useState("");
@@ -23,7 +28,6 @@ function SignUp() {
         email,
         password
       );
-      console.log({ user });
       await createUserProfileDocument(user, { displayName });
       clearFields();
       alert("User created successfully");
@@ -39,10 +43,10 @@ function SignUp() {
     setConfirmPassword("");
   };
   return (
-    <div className="sign-up">
-      <h2 className="title">I do not have a account</h2>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
+    <Container>
+      <Title>I do not have a account</Title>
+      <SubTitle>Sign up with your email and password</SubTitle>
+      <Form onSubmit={handleSubmit}>
         <FormInput
           type="text"
           label="Display Name"
@@ -79,11 +83,11 @@ function SignUp() {
           handleChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <div className="button-container">
+        <ButtonContainer>
           <CustomButton type="submit">SIGN UP</CustomButton>
-        </div>
-      </form>
-    </div>
+        </ButtonContainer>
+      </Form>
+    </Container>
   );
 }
 

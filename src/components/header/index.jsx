@@ -1,11 +1,16 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import "./styles.scss";
+import { useHistory } from "react-router-dom";
 import logo from "../../assets/crown.svg";
-import { useFirebase } from "../../context/firebase";
 import { auth } from "../../util/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../cart-icon";
+import {
+  Container,
+  LogoContainer,
+  Options,
+  Option,
+  SignOut,
+} from "./styles/header";
 
 function Header() {
   const history = useHistory();
@@ -19,29 +24,21 @@ function Header() {
     history.push("/");
   };
   return (
-    <div className="header">
-      <Link to="/" className="logo-container">
-        <img src={logo} alt="logo" className="logo" />
-      </Link>
-      <div className="options">
-        <Link to="/shop" className="option">
-          SHOP
-        </Link>
-        <Link to="/contact" className="option">
-          CONTACT
-        </Link>
+    <Container>
+      <LogoContainer to="/">
+        <img src={logo} alt="logo" />
+      </LogoContainer>
+      <Options>
+        <Option to="/shop">SHOP</Option>
+        <Option to="/contact">CONTACT</Option>
         {currentUser ? (
-          <div className="option" onClick={signout}>
-            SIGN OUT
-          </div>
+          <SignOut onClick={signout}>SIGN OUT</SignOut>
         ) : (
-          <Link to="/signin" className="option">
-            SIGN IN
-          </Link>
+          <Option to="/signin">SIGN IN</Option>
         )}
         <CartIcon />
-      </div>
-    </div>
+      </Options>
+    </Container>
   );
 }
 

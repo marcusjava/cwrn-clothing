@@ -3,8 +3,8 @@ import CustomButtom from "../custom-button";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toggleCartDropdown } from "../../redux/cart/cartActions";
+import { Dropdown, Items, NoItems } from "./styles/cart-dropdown";
 
-import "./styles.scss";
 import CartItem from "../cart-item";
 
 function CartDropdown() {
@@ -17,18 +17,18 @@ function CartDropdown() {
     history.push("/checkout");
   };
   return (
-    <div className="cart-dropdown">
-      <div className="cart-items">
+    <Dropdown>
+      <Items>
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <p className="no-items">You cart is empty</p>
+          <NoItems>You cart is empty</NoItems>
         )}
-      </div>
+      </Items>
       <CustomButtom inverted onClick={goToCheckout}>
         GO TO CHECKOUT
       </CustomButtom>
-    </div>
+    </Dropdown>
   );
 }
 

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { selectCollection } from "../../redux/shop/shopSelectors";
 import { useSelector } from "react-redux";
-import "./styles.scss";
+import { Container, Items, Title } from "./styles";
 
 function Collection() {
   const { collection_name } = useParams();
@@ -15,14 +15,14 @@ function Collection() {
     })
   );
   return (
-    <div className="collection-page">
-      <h2 className="title">{collections.title}</h2>
-      <div className="items">
+    <Container>
+      <Title>{collections.title}</Title>
+      <Items>
         {collections.items.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </Items>
+    </Container>
   );
 }
 

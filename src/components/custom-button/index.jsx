@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.scss";
+import { Button } from "./styles/custom-button";
 
 function CustomButton({
   children,
@@ -9,14 +9,14 @@ function CustomButton({
   ...props
 }) {
   return (
-    <button
+    <Button
       className={`${isGoogleButton && "google-button"} ${
         inverted && "inverted"
-      } custom-button`}
+      }`}
       {...props}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 
