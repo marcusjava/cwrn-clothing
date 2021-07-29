@@ -4,13 +4,7 @@ import logo from "../../assets/crown.svg";
 import { auth } from "../../util/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../cart-icon";
-import {
-  Container,
-  LogoContainer,
-  Options,
-  Option,
-  SignOut,
-} from "./styles/header";
+import { Container, LogoContainer, Options, Option } from "./styles/header";
 
 function Header() {
   const history = useHistory();
@@ -32,7 +26,9 @@ function Header() {
         <Option to="/shop">SHOP</Option>
         <Option to="/contact">CONTACT</Option>
         {currentUser ? (
-          <SignOut onClick={signout}>SIGN OUT</SignOut>
+          <Option as="div" onClick={signout}>
+            SIGN OUT
+          </Option>
         ) : (
           <Option to="/signin">SIGN IN</Option>
         )}

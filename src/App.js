@@ -18,16 +18,21 @@ function App() {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log("auth changed", user);
         const userRef = await createUserProfileDocument(user);
 
         userRef.onSnapshot((snapshot) => {
           dispatch(setCurrentUser({ id: snapshot.id, ...snapshot.data() }));
         });
+        /*    console.log("adicionando as colecoes", collections);
+        addCollectionDocs(
+          "collections",
+          collections.map(({ title, items }) => ({ title, items }))
+        ); */
       } else {
         dispatch(setCurrentUser(null));
       }
     });
+
     return () => {
       unsubscribeFromAuth();
     };

@@ -9,6 +9,9 @@ function CollectionOverview() {
   const { collections } = useSelector(
     createStructuredSelector({ collections: selectShopCollections })
   );
+
+  console.log(collections);
+
   return (
     <Container>
       {collections.map(({ id, title, items }) => (

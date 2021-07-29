@@ -1,4 +1,31 @@
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
+
+const GoogleButton = css`
+  background-color: #4285f4;
+  color: white;
+  font-size: 12px;
+
+  &:hover {
+    background-color: #357a83;
+    border: none;
+  }
+`;
+
+const InvertedButton = css`
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+  }
+`;
+
+const DefaultButton = css`
+  background-color: black;
+  color: white;
+`;
 
 export const Button = styled.button`
   width: 100%;
@@ -19,24 +46,6 @@ export const Button = styled.button`
     color: black;
     border: 1px solid black;
   }
-  &.google-button {
-    background-color: #4285f4;
-    color: white;
-    font-size: 12px;
-
-    &:hover {
-      background-color: #357a83;
-      border: none;
-    }
-  }
-  &.inverted {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    &:hover {
-      background-color: black;
-      color: white;
-      border: 1px solid black;
-    }
-  }
+  ${(props) => props.isGoogleButton && GoogleButton}
+  ${(props) => props.inverted && InvertedButton}
 `;

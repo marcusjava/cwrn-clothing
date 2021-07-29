@@ -9,12 +9,7 @@ function CustomButton({
   ...props
 }) {
   return (
-    <Button
-      className={`${isGoogleButton && "google-button"} ${
-        inverted && "inverted"
-      }`}
-      {...props}
-    >
+    <Button isGoogleButton={isGoogleButton} inverted={inverted} {...props}>
       {children}
     </Button>
   );
