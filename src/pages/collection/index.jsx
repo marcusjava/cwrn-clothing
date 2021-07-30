@@ -14,6 +14,7 @@ function Collection() {
       collections: selectCollection(collection_name),
     })
   );
+
   return (
     <Container>
       <Title>{collections.title}</Title>

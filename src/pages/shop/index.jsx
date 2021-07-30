@@ -4,11 +4,7 @@ import { Route, useRouteMatch } from "react-router-dom";
 import Collection from "../collection";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../util/firebase";
-import { updateCollections } from "../../redux/shop/shopActions";
+import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
 import { selectShopCollections } from "../../redux/shop/shopSelectors";
 import { createStructuredSelector } from "reselect";
 import WithSpinner from "../../components/with-spinner";
@@ -23,38 +19,28 @@ function Shop() {
 
   let match = useRouteMatch();
 
-  const { collections } = useSelector(
-    createStructuredSelector({ collections: selectShopCollections })
-  );
-
   const { loading } = useSelector((state) => state.shop);
 
   useEffect(() => {
-    const collectionRef = firestore.collection("collections");
-
-    const unsubscribeFromSnapshot = collectionRef.onSnapshot(
-      async (snapshot) => {
-        const collections = convertCollectionsSnapshotToMap(snapshot);
-        dispatch(updateCollections(collections));
-      }
-    );
-    return () => {
-      unsubscribeFromSnapshot();
-    };
+    dispatch(fetchCollectionsStartAsync());
   }, []);
 
   return (
-    <div>
+    <>
       <Route
         exact
         path={`${match.path}`}
-        component={CollectionsOverviewWithSpinner(loading)}
+        render={(props) => (
+          <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
+        )}
       />
       <Route
         path={`${match.path}/:collection_name`}
-        component={CollectionsWithSpinner(loading)}
+        render={(props) => (
+          <CollectionsWithSpinner isLoading={loading} {...props} />
+        )}
       />
-    </div>
+    </>
   );
 }
 

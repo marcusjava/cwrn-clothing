@@ -16,14 +16,21 @@ export const selectShopCollections = createSelector(
 );
 
 export const selectCollection = (collection) =>
-  createSelector([selectShopCollections], (collections) =>
-    collections
-      ? collections.find((item) => item.id === COLLECTION_ID_MAP[collection])
-      : null
-  );
+  createSelector([selectShopCollections], (collections) => {
+    return collections
+      ? Object.keys(collections)
+          .map((key) => collections[key])
+          .find((item) => item.routeName === collection)
+      : null;
+  });
 
 export const selectCollectionForPreview = createSelector(
   [selectCollection],
   (collections) =>
     collections ? Object.keys(collections).map((key) => collections[key]) : []
+);
+
+export const selectIsCollectionFetching = createSelector(
+  [shopDirectory],
+  (shop) => shop.loading
 );

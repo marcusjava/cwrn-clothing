@@ -7,6 +7,24 @@ export const Container = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  margin: 15px 0;
+  .custom-button {
+    position: absolute;
+    width: 80%;
+    top: 255px;
+    opacity: 0.6;
+    display: none;
+  }
+
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+    .custom-button {
+      opacity: 0.85;
+      display: flex;
+    }
+  }
 `;
 
 export const Image = styled.div`

@@ -10,13 +10,13 @@ function CollectionOverview() {
     createStructuredSelector({ collections: selectShopCollections })
   );
 
-  console.log(collections);
-
   return (
     <Container>
-      {collections.map(({ id, title, items }) => (
-        <CollectionPreview key={id} title={title} items={items} />
-      ))}
+      {Object.keys(collections).map((key) => {
+        const { id, title, items } = collections[key];
+
+        return <CollectionPreview key={id} title={title} items={items} />;
+      })}
     </Container>
   );
 }
