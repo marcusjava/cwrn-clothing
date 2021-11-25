@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+REACT_APP_FIREBASE_API_KEY = "AIzaSyAxupBHtg3KiZKDxsxBqsm9RXqR6EEg8yk"
+REACT_APP_FIREBASE_APP_ID = "1:670093563570:web:76a577cadac6b104429bab"
+
 ## Available Scripts
 
 In the project directory, you can run:
