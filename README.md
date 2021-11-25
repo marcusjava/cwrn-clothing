@@ -1,6 +1,6 @@
 <img src="src/assets/cwrn.png" height=500/><img src="src/assets/cwrn2.png" width=400 height=200/><img src="src/assets/cwrn3.png" width=400 height=200/><img src="src/assets/cwrn4.png" width=400 height=200/><img src="src/assets/cwrn5.png" width=400 height=200/>
 
-# Bem Vindo ao MovieDB React App
+# Bem Vindo ao CWRN Clothing React App
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/37118c03-399e-4a1b-a17e-4263e076d504/deploy-status)](https://app.netlify.com/sites/dazzling-noyce-4bf66e/deploys)
 
