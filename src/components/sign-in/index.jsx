@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { signInWithGoogle } from "../../util/firebase";
 import CustomButton from "../custom-button";
 import FormInput from "../form-input";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { auth } from "../../util/firebase";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Title,
   SubTitle,
   Form,
   ButtonContainer,
+  ErrorMessage,
 } from "./styles/sign-in";
+
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/userActions";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const history = useHistory();
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (currentUser) history.push("/");
@@ -27,14 +33,7 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-
-      alert("User created successfully");
-      clearFields();
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(emailSignInStart({ email, password }));
   };
 
   const clearFields = () => {
@@ -65,9 +64,14 @@ function SignIn() {
           handleChange={(e) => setPassword(e.target.value)}
           required
         />
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <ButtonContainer>
           <CustomButton type="submit">SIGN IN</CustomButton>
-          <CustomButton onClick={signInWithGoogle} isGoogleButton>
+          <CustomButton
+            type="button"
+            onClick={() => dispatch(googleSignInStart())}
+            isGoogleButton
+          >
             SIGN IN WITH GOOGLE
           </CustomButton>
         </ButtonContainer>

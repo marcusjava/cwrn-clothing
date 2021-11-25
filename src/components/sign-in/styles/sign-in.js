@@ -1,4 +1,3 @@
-import { css } from "styled-components";
 import styled from "styled-components/macro";
 
 export const Container = styled.div`
@@ -27,4 +26,9 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 10px;
+`;
+
+export const ErrorMessage = styled.span`
+  color: red;
+  margin-bottom: 2rem;
 `;

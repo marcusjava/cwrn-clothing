@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/crown.svg";
-import { auth } from "../../util/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../cart-icon";
 import { Container, LogoContainer, Options, Option } from "./styles/header";
+import { signOutStart } from "../../redux/user/userActions";
 
 function Header() {
   const history = useHistory();
@@ -14,8 +14,7 @@ function Header() {
   const { currentUser } = useSelector((state) => state.user);
 
   const signout = () => {
-    auth.signOut();
-    history.push("/");
+    dispatch(signOutStart());
   };
   return (
     <Container>

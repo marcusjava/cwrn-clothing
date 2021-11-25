@@ -14,6 +14,7 @@ function CartDropdown() {
 
   const goToCheckout = () => {
     dispatch(toggleCartDropdown());
+
     history.push("/checkout");
   };
   return (

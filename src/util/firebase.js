@@ -4,12 +4,12 @@ import "firebase/auth";
 
 //const firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG;
 const firebaseConfig = {
-  apiKey: "AIzaSyAxupBHtg3KiZKDxsxBqsm9RXqR6EEg8yk",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "cwrn-react.firebaseapp.com",
   projectId: "cwrn-react",
   storageBucket: "cwrn-react.appspot.com",
   messagingSenderId: "670093563570",
-  appId: "1:670093563570:web:76a577cadac6b104429bab",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -40,11 +40,20 @@ export const createUserProfileDocument = async (user, data) => {
   return userRef;
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
+// retornando uma promise para que possa trabalhar no SAGA
+export const getCurrentUser = () =>
+  new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 
-provider.setCustomParameters({ prompt: "select_account" });
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export const addCollectionDocs = async (collectionKey, objectsToAdd) => {
   const collectionRef = firestore.collection(collectionKey);

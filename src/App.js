@@ -5,38 +5,22 @@ import Homepage from "./pages/homepage";
 import Shop from "./pages/shop";
 import Header from "./components/header";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up";
-import { setCurrentUser } from "./redux/user/userActions";
-import { useDispatch, useSelector } from "react-redux";
-import { auth, createUserProfileDocument } from "./util/firebase";
+import { useSelector, useDispatch } from "react-redux";
 import Checkout from "./pages/checkout";
+import { checkUserSession } from "./redux/user/userActions";
 
 function App() {
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const { currentUser } = useSelector((state) => state.user);
-
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const userRef = await createUserProfileDocument(user);
-
-        userRef.onSnapshot((snapshot) => {
-          dispatch(setCurrentUser({ id: snapshot.id, ...snapshot.data() }));
-        });
-        /*    console.log("adicionando as colecoes", collections);
-        addCollectionDocs(
-          "collections",
-          collections.map(({ title, items }) => ({ title, items }))
-        ); */
-      } else {
-        dispatch(setCurrentUser(null));
-      }
-    });
-
-    return () => {
-      unsubscribeFromAuth();
-    };
+    dispatch(checkUserSession());
+    /*   addCollectionDocs(
+      "collections",
+      shopData.map(({ title, items }) => ({ title, items }))
+    ); */
   }, []);
+
   return (
     <div className="App">
       <Header />

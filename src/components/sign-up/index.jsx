@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { auth, createUserProfileDocument } from "../../util/firebase";
 import CustomButton from "../custom-button";
 import FormInput from "../form-input";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../redux/user/userActions";
 import {
   Container,
   Title,
@@ -16,23 +17,18 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserProfileDocument(user, { displayName });
-      clearFields();
-      alert("User created successfully");
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+      dispatch(signUpStart({ email, password, displayName }));
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

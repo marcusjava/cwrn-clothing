@@ -4,6 +4,7 @@ import {
   CLEAR_CART_ITEM,
   ADD_ITEM_QTY,
   DEC_ITEM_QTY,
+  CLEAR_CART,
 } from "../constants";
 
 export const toggleCartDropdown = () => ({ type: TOGGLE_CART_HIDDEN });
@@ -23,3 +24,5 @@ export const decreaseItemQuantity = (item) => ({
   type: DEC_ITEM_QTY,
   payload: item,
 });
+
+export const clearCart = () => ({ type: CLEAR_CART });

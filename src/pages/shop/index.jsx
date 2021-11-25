@@ -4,9 +4,7 @@ import { Route, useRouteMatch } from "react-router-dom";
 import Collection from "../collection";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchCollectionsStartAsync } from "../../redux/shop/shopActions";
-import { selectShopCollections } from "../../redux/shop/shopSelectors";
-import { createStructuredSelector } from "reselect";
+import { fetchCollectionsStart } from "../../redux/shop/shopActions";
 import WithSpinner from "../../components/with-spinner";
 
 // import { Container } from './styles';
@@ -22,7 +20,7 @@ function Shop() {
   const { loading } = useSelector((state) => state.shop);
 
   useEffect(() => {
-    dispatch(fetchCollectionsStartAsync());
+    dispatch(fetchCollectionsStart());
   }, []);
 
   return (
